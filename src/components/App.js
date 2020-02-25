@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AboutPage from './AboutPage';
 import HomePage from './HomePage';
 import Menu from './common/Menu';
 import NotFoundPage from './NotFoundPage';
+import { connect } from 'react-redux';
+import * as homepageActions from '../redux/actions/homepageActions';
 
-function App() {
+const App = props => {
+  useEffect(() => {
+    props.loadNumber().catch(error => {
+      alert('loading number faild' + error);
+    });
+  }, []);
+
   return (
     <div className='container'>
       <Menu />
@@ -16,6 +24,16 @@ function App() {
       </Switch>
     </div>
   );
+};
+
+function mapStateToProps(state) {
+  return {
+    number: state.number
+  };
 }
 
-export default App;
+const mapDispatchToProps = {
+  loadNumber: homepageActions.loadNumber
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
