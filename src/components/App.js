@@ -10,9 +10,10 @@ import * as homepageActions from '../redux/actions/homepageActions';
 const App = props => {
   useEffect(() => {
     props.loadNumber().catch(error => {
-      alert('loading number faild' + error);
+      // alert('loading number faild' + error);
     });
   }, []);
+
 
   return (
     <div className='container'>
